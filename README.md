@@ -34,7 +34,7 @@ Usage
 
 Install rack-bert-rpc as part of your application's middleware stack.
 
-    use BertRpc, :expose => {
+    use Rack::BertRpc, :expose => {
       :mod => Mod
     }
 
@@ -66,7 +66,7 @@ expose the `HelloWorld` module
     require 'rack/bert_rpc'
     require 'hello_world'
 
-    use BertRpc, :expose => {
+    use Rack::BertRpc, :expose => {
       :hello => HelloWorld
     }
     run lambda{ |env| [200, {}, "success"] }
@@ -94,7 +94,7 @@ request over HTTP to test our module
     resp = nil
     Net::HTTP.start('localhost', 3001){ |http| resp = http.request(req) }
 
-    puts decode(response.body).second
+    puts decode(resp.body)[1]
 
 Next start up your rack server on the appropriate port
 

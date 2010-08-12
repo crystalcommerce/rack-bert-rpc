@@ -1,9 +1,9 @@
 LICENSE
 README.md
 Manifest.txt
-lib/bert_rpc.rb
-lib/bert_rpc/encoding.rb
-lib/bert_rpc/mod.rb
-lib/bert_rpc/server_error.rb
-lib/bert_rpc/server.rb
-lib/bert_rpc/version.rb
+lib/rack/bert_rpc.rb
+lib/rack/bert_rpc/encoding.rb
+lib/rack/bert_rpc/mod.rb
+lib/rack/bert_rpc/server_error.rb
+lib/rack/bert_rpc/server.rb
+lib/rack/bert_rpc/version.rb

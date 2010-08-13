@@ -1,3 +1,7 @@
 == 0.1.0 / 2010-08-12
 
 * Initial release
+
+== 0.2.0 / 2010-08-13
+
+* Add support for exposing modules outside of the rack configuration

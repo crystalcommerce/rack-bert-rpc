@@ -49,6 +49,16 @@ The `BertRpc` middle takes several configuration parameters:
   Used for testing, switches out the backend `BertRpc::Server` so the
   requests can be handled by a different one
 
+Modules can also be exposed through class level methods on
+`Rack::BertRpc`. For example:
+
+    Rack::BertRpc.expose(:mod, Mod)
+
+exposes the module `Mod` as `:mod`. This list of exposed modules can
+be cleared using `Rack::BertRpc#clear_exposed`. Note: this will only
+clear modules listed through `Rack::BertRpc#expose`, not those exposed
+through the Rack configuration.
+
 Example
 -------
 

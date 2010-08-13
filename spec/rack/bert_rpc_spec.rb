@@ -21,7 +21,7 @@ module Rack
       end
     end
 
-    describe "#init" do
+    describe "#initialize" do
       it "sets the path if specified" do
         middleware = BertRpc.new(nil, :path => '/blah' )
         middleware.path.should == '/blah'
@@ -42,6 +42,13 @@ module Rack
         BertRpc.new(nil, :server => server, :expose => {
                       :dummy => DummyApp
                     })
+      end
+
+      it "exposes any modules that have been set as exposed on the class" do
+        server.should_receive(:expose).with(:class_level, DummyApp)
+        BertRpc.expose(:class_level, DummyApp)
+        BertRpc.new(nil, :server => server)
+        BertRpc.clear_exposed
       end
     end
 

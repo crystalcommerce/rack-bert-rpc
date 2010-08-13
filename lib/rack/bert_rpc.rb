@@ -4,7 +4,7 @@ module Rack
   class BertRpc
     class << self
       def expose(sym, mod)
-        @exposed_modules << [sym, mod]
+        exposed_modules << [sym, mod]
       end
 
       def exposed_modules

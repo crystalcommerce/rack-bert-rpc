@@ -118,12 +118,12 @@ module Rack
 
         context "the request is invalid" do
           before do
-            subject.stub(:read_rpc).and_return([])
+            subject.stub(:read_rpc).and_return(nil)
           end
 
           it "calls #error_response with invalid request info" do
             subject.should_receive(:error_response).with(:server,
-                                                         "Invalid request: []")
+                                            "Invalid request: unrecognized")
             subject.handle(input)
           end
         end

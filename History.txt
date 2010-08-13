@@ -5,3 +5,8 @@
 == 0.2.0 / 2010-08-13
 
 * Add support for exposing modules outside of the rack configuration
+
+== 0.2.1 / 2010-08-13
+
+* Fixed error reporting on unrecognized requests
+* Fixed a possible nil pointer when exposing modules

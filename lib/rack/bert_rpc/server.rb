@@ -19,6 +19,9 @@ module Rack
 
       def handle(input)
         rpc = read_rpc(input)
+        if rpc.nil?
+          return error_response(:server, "Invalid request: unrecognized")
+        end
 
         if rpc.size == 4 && rpc[0] == :call
           begin

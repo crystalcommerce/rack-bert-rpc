@@ -15,6 +15,14 @@ module Rack
       def clear_exposed
         @exposed_modules = []
       end
+
+      def logger
+        @logger ||= ::Logger.new(STDOUT)
+      end
+
+      def logger=(logger)
+        @logger = logger
+      end
     end
 
     attr_reader :path
@@ -22,8 +30,8 @@ module Rack
     def initialize(app, options = {})
       @path = options[:path] || '/rpc'
       @app = app
-      logger = options[:logger] || ::Logger.new(STDOUT)
-      @server = options[:server] || Server.new(logger)
+      logger = options[:logger] || BertRpc.logger
+      @server = options[:server] || BertRpc::Server.new(logger)
 
       expose_defaults!
       options[:expose].each do |sym, mod|

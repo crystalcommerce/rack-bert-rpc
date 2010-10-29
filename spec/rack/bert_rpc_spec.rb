@@ -57,9 +57,9 @@ module Rack
         BertRpc.new(nil, :logger => logger)
       end
 
-      it "defaults to a logger based on STDOUT" do
+      it "uses any logger set at the class level" do
         logger = mock("Logger")
-        ::Logger.should_receive(:new).with(STDOUT).and_return(logger)
+        BertRpc.logger = logger
         BertRpc::Server.should_receive(:new).with(logger)
         BertRpc.new(nil)
       end

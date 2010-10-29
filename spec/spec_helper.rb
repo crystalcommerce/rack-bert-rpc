@@ -1,11 +1,9 @@
-require 'rubygems'
-require 'spec'
+require 'rspec'
 require 'rack/test'
 
 $:.unshift '../../lib'
-
 require 'rack/bert_rpc'
 
-Spec::Runner.configure do |config|
-  config.include Rack::Test::Methods
+RSpec.configure do |c|
+  c.include Rack::Test::Methods
 end

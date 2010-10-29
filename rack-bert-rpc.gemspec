@@ -1,7 +1,4 @@
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-
-require 'rack/bert_rpc/version'
+require File.expand_path("../lib/rack/bert_rpc/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "rack-bert-rpc"
@@ -18,7 +15,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'bert'
   s.add_dependency 'rack'
 
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'bundler', ">= 1.0.0"
+  s.add_development_dependency 'rspec', "~> 2.0.1"
   s.add_development_dependency 'rack-test'
 
   s.files = File.readlines("Manifest.txt").inject([]) do |files, line|

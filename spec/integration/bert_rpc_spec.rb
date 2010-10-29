@@ -4,11 +4,19 @@ require 'integration/hello_sample'
 
 module Rack
   describe BertRpc do
+    class NilLogger
+      [:debug, :info, :warn, :error, :fatal].each do |m|
+        define_method(m) do |msg|
+          nil
+        end
+      end
+    end
+
     def app
       Builder.new do
         use BertRpc, :expose => {
           :hello => HelloSample
-        }
+        }, :logger => NilLogger.new
         run lambda{ |env| [200, {}, "success"] }
       end
     end

@@ -1,4 +1,5 @@
 require 'rack'
+require 'logger'
 
 module Rack
   class BertRpc
@@ -21,7 +22,8 @@ module Rack
     def initialize(app, options = {})
       @path = options[:path] || '/rpc'
       @app = app
-      @server = options[:server] || Server.new
+      logger = options[:logger] || ::Logger.new(STDOUT)
+      @server = options[:server] || Server.new(logger)
 
       expose_defaults!
       options[:expose].each do |sym, mod|

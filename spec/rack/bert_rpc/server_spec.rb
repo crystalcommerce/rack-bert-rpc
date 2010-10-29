@@ -5,6 +5,8 @@ module Rack
     describe Server do
       module SampleMod; end
 
+      subject{ Server.new(mock("Logger").as_null_object) }
+
       describe "#expose" do
         it "creates a new Rack::BertRpc::Module wrapping the ruby module" do
           Mod.should_receive(:new).with(SampleMod)

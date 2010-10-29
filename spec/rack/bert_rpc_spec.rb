@@ -50,6 +50,19 @@ module Rack
         BertRpc.new(nil, :server => server)
         BertRpc.clear_exposed
       end
+
+      it "uses the logger that it is passed" do
+        logger = mock("Logger")
+        BertRpc::Server.should_receive(:new).with(logger)
+        BertRpc.new(nil, :logger => logger)
+      end
+
+      it "defaults to a logger based on STDOUT" do
+        logger = mock("Logger")
+        ::Logger.should_receive(:new).with(STDOUT).and_return(logger)
+        BertRpc::Server.should_receive(:new).with(logger)
+        BertRpc.new(nil)
+      end
     end
 
     describe "#call" do

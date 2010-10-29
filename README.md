@@ -45,6 +45,10 @@ The `BertRpc` middle takes several configuration parameters:
 * `path`
   Any requests coming in to this path will be handled as RPC
   requests. Defaults to '/rpc'
+* `logger`
+  This is a `Logger` object that will be used for logging messages
+  from the RPC server. If no logger is provided a default one will be
+  created that logs to `STDOUT`
 * `server`
   Used for testing, switches out the backend `BertRpc::Server` so the
   requests can be handled by a different one

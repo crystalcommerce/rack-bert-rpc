@@ -1,6 +1,7 @@
 == 0.3.0 / In Development
 
 * Return server errors during casts
+* Add logging and allow setting of logger
 
 == 0.2.1 / 2010-08-13
 

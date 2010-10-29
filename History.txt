@@ -1,12 +1,16 @@
-== 0.1.0 / 2010-08-12
+== 0.3.0 / In Development
 
-* Initial release
-
-== 0.2.0 / 2010-08-13
-
-* Add support for exposing modules outside of the rack configuration
+* Return server errors during casts
 
 == 0.2.1 / 2010-08-13
 
 * Fixed error reporting on unrecognized requests
 * Fixed a possible nil pointer when exposing modules
+
+== 0.2.0 / 2010-08-13
+
+* Add support for exposing modules outside of the rack configuration
+
+== 0.1.0 / 2010-08-12
+
+* Initial release

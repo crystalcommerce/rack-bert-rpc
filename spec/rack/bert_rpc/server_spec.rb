@@ -114,6 +114,25 @@ module Rack
             subject.stub(:noreply_response).and_return(noreply)
             subject.handle(input).should == noreply
           end
+
+          context "there is a server error" do
+            let(:error){ ServerError.new }
+
+            before do
+              subject.stub(:dispatch).and_raise(error)
+            end
+
+            it "calls #error_response with the error data" do
+              subject.should_receive(:error_response).with(:server, error)
+              subject.handle(input)
+            end
+
+            it "returns the response" do
+              error = mock("Error response")
+              subject.stub(:error_response).and_return(error)
+              subject.handle(input).should == error
+            end
+          end
         end
 
         context "the request is invalid" do

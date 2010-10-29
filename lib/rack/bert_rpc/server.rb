@@ -35,10 +35,12 @@ module Rack
         elsif rpc.size == 4 && rpc[0] == :cast
           begin
             dispatch(*rpc[1..3])
+            noreply_response
+          rescue ServerError => e
+            error_response(:server, e)
           rescue Object => e
-            # Just ignore errors here
+            noreply_response
           end
-          noreply_response
         else
           error_response(:server, "Invalid request: #{rpc.inspect}")
         end

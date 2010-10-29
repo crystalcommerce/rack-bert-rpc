@@ -13,26 +13,40 @@ module Rack
       end
     end
 
-    def berp(msg)
-      [msg.length].pack("N") + msg
+    def make_request(bert)
+      msg = BERT.encode(bert)
+      data = [msg.length].pack("N") + msg
+      get "/rpc", {}, "rack.input" => StringIO.new(data)
     end
 
     it "returns the results of the correct function call" do
-      data = berp(BERT.encode(t[:call, :hello, :say_hello, ["Ryan"]]))
-      get "/rpc", {}, "rack.input" => StringIO.new(data)
+      make_request(t[:call, :hello, :say_hello, ["Ryan"]])
       last_response.should eql_bert(t[:reply, "Hello, Ryan!"])
     end
 
-    it "returns an error for bad functions calls" do
-      data = berp(BERT.encode(t[:call, :hello, :error, []]))
-      get "/rpc", {}, "rack.input" => StringIO.new(data)
+    it "returns a user error for errors on calls" do
+      make_request(t[:call, :hello, :error, []])
       last_response.should be_a_user_error
     end
 
-    it "returns noreply for casts" do
-      data = berp(BERT.encode(t[:cast, :nope, :say_hello, ["Ryan"]]))
-      get "/rpc", {}, "rack.input" => StringIO.new(data)
+    it "returns a server error for bad functions on calls" do
+      make_request(t[:call, :nope, :error, []])
+      last_response.should be_a_server_error
+    end
+
+    it "returns noreply for valid casts" do
+      make_request(t[:cast, :hello, :say_hello, ["Ryan"]])
       last_response.should eql_bert(t[:noreply])
+    end
+
+    it "returns noreply for errors on casts" do
+      make_request(t[:cast, :hello, :error, []])
+      last_response.should eql_bert(t[:noreply])
+    end
+
+    it "returns a server error for bad functions on casts" do
+      make_request(t[:cast, :nope, :error, []])
+      last_response.should be_a_server_error
     end
   end
 end
